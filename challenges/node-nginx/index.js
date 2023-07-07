@@ -10,8 +10,12 @@ const config = {
 }
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
-const sql = `INSERT INTO people (name) VALUES ('Wesley')`
-connection.query(sql)
+
+const createTableQuery = `CREATE TABLE IF NOT EXISTS people(id int auto_increment, name varchar(255), primary key(id))`
+connection.query(createTableQuery)
+
+const insertQuery = `INSERT INTO people (name) VALUES ('Wesley')`
+connection.query(insertQuery)
 
 app.get('/', async (req, res) => {
   connection.query('SELECT * FROM people', (_, result) => {
